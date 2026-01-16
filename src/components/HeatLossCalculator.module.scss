@@ -1,0 +1,630 @@
+// Modern Minimalist Heat Loss Calculator Styles
+// Using precise units (px, %, rem) for exact control
+
+// Main Calculator Component
+.heatLossCalculator {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f7ff 0%, #fafafa 100%);
+  padding: 24px;
+  font-family: inherit;
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    border: 1px solid #e5e5e5;
+  }
+
+  &__header {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+
+    // Subtle pattern overlay
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 30%;
+    }
+
+    &_title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #ffffff;
+      margin: 0;
+      letter-spacing: -0.025em;
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  &__content {
+    padding: 30px;
+  }
+
+  &__section {
+    margin-bottom: 48px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &_title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #171717;
+      margin: 0 0 24px 0;
+      letter-spacing: -0.025em;
+      position: relative;
+      padding-left: 16px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 4px;
+        height: 24px;
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        border-radius: 2px;
+      }
+    }
+  }
+
+  &__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+
+    & > * {
+      flex: 1 1 300px;
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 16px;
+
+      & > * {
+        flex: 1 1 auto;
+        min-width: auto;
+      }
+    }
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &--wide {
+      flex: 1 1 100%;
+      min-width: 100%;
+    }
+
+    &_label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #525252;
+      margin: 0;
+      text-transform: capitalize;
+      letter-spacing: 0.025em;
+    }
+
+    &_input {
+      border: 2px solid #e5e5e5;
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 16px;
+      font-family: inherit;
+      color: #171717;
+      background: #ffffff;
+      transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      min-height: 48px;
+
+      &::placeholder {
+        color: #a3a3a3;
+      }
+
+      &:hover {
+        border-color: #d4d4d4;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        background: #ffffff;
+      }
+
+      &_readonly {
+        background: #f5f5f5;
+        border-color: #e5e5e5;
+        cursor: not-allowed;
+        color: #525252;
+
+        &:hover {
+          border-color: #e5e5e5;
+        }
+
+        &:focus {
+          border-color: #e5e5e5;
+          box-shadow: none;
+        }
+      }
+    }
+
+    &_unit {
+      font-size: 12px;
+      color: #525252;
+      font-weight: 500;
+      margin-top: 4px;
+      text-align: right;
+    }
+
+    &_group {
+      display: flex;
+      gap: 8px;
+
+      .heatLossCalculator__field_input {
+        flex: 1;
+      }
+
+      .heatLossCalculator__button {
+        flex-shrink: 0;
+        min-width: auto;
+        padding: 8px 20px;
+      }
+    }
+    &_row{
+      display: flex;
+      gap: 10px;
+      &_item{
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    min-height: 48px;
+    position: relative;
+    overflow: hidden;
+
+    // Ripple effect base
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: width 150ms cubic-bezier(0.4, 0, 0.2, 1), height 150ms cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translate(-50%, -50%);
+      z-index: 0;
+    }
+
+    &:active::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    // Button content
+    & > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 60%;
+    }
+
+    &_primary {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: #ffffff;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+      &:hover:not(:disabled) {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        transform: translateY(-1px);
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+    }
+
+    &_success {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #ffffff;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+      &:hover:not(:disabled) {
+        background: linear-gradient(135deg, #059669, #047857);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        transform: translateY(-1px);
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+    }
+
+    &_secondary {
+      background: #f5f5f5;
+      color: #171717;
+      border: 2px solid #e5e5e5;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+      &:hover:not(:disabled) {
+        background: #f5f5f5;
+        border-color: #d4d4d4;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
+      &_disabled {
+        background: #f5f5f5;
+        color: #a3a3a3;
+        border-color: #e5e5e5;
+        cursor: not-allowed;
+
+        &:hover {
+          background: #f5f5f5;
+          border-color: #e5e5e5;
+          box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+          transform: none;
+        }
+      }
+    }
+  }
+
+  &__controls {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid #e5e5e5;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      
+      .heatLossCalculator__button {
+        width: 100%;
+      }
+    }
+  }
+
+  // Results section specific styling
+  &__section:has(.heatLossCalculator__field_input[readonly]) {
+    .heatLossCalculator__field_input {
+      font-weight: 600;
+      background: linear-gradient(135deg, #f0f7ff, #fafafa);
+      border-color: #bae0ff;
+      color: #1e3a8a;
+    }
+  }
+
+  // Field Input class fix for results section
+  &__fieldInput {
+    border: 2px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 16px;
+    font-family: inherit;
+    color: #171717;
+    background: #ffffff;
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 48px;
+    width: 100%;
+
+    &::placeholder {
+      color: #a3a3a3;
+    }
+
+    &:hover {
+      border-color: #d4d4d4;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+      background: #ffffff;
+    }
+
+    &--readonly {
+      background: #f5f5f5;
+      border-color: #e5e5e5;
+      cursor: not-allowed;
+      color: #525252;
+      font-weight: 600;
+
+      &:hover {
+        border-color: #e5e5e5;
+      }
+
+      &:focus {
+        border-color: #e5e5e5;
+        box-shadow: none;
+      }
+    }
+  }
+
+  // Results display styles
+  &__results {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  &__result {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #e2e8f0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &_label {
+      font-size: 14px;
+      color: #475569;
+      font-weight: 500;
+      text-transform: lowercase;
+      flex: 1;
+    }
+
+    &_value {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    }
+
+    &_number {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1e293b;
+      background: #ffffff;
+      padding: 4px 12px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      min-width: 80px;
+      text-align: right;
+    }
+
+    &_unit {
+      font-size: 14px;
+      color: #64748b;
+      font-weight: 500;
+      margin-left: 4px;
+    }
+  }
+  &__fields{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+}
+
+// Подсказки под полями формы и в результатах
+.helpText {
+  display: block;
+  font-size: 11px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.helpTextTop {
+  display: block;
+  font-size: 11px;
+  color: #6b7280;
+  margin-top: 6px;
+}
+
+// Вариант с фиксированной высотой для экранов, где нужно выравнивание по сетке
+.helpTextTall {
+  display: block;
+  font-size: 11px;
+  color: #6b7280;
+  margin-bottom: 6px;
+  // height: 33px;
+}
+
+// Utility classes for enhanced UX
+.fade-in {
+  animation: fadeIn 350ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-up {
+  animation: slideUp 350ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Loading states
+.loading {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+// Responsive Design
+@media (max-width: 1024px) {
+  .heatLossCalculator {
+    padding: 16px;
+
+    &__content {
+      padding: 32px;
+    }
+
+    &__header {
+      padding: 24px;
+
+      &_title {
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .heatLossCalculator {
+    padding: 12px;
+
+    &__content {
+      padding: 24px;
+    }
+
+    &__header {
+      padding: 20px;
+
+      &_title {
+        font-size: 18px;
+      }
+    }
+
+    &__section {
+      margin-bottom: 32px;
+
+      &_title {
+        font-size: 18px;
+        margin-bottom: 16px;
+      }
+    }
+
+    &__button {
+      padding: 14px 24px;
+      font-size: 14px;
+      min-height: 44px;
+    }
+
+    &__field_input {
+      padding: 14px 16px;
+      font-size: 16px; // Keep 16px to prevent zoom on iOS
+      min-height: 44px;
+    }
+
+    &__fieldInput {
+      padding: 14px 16px;
+      font-size: 16px;
+      min-height: 44px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .heatLossCalculator {
+    padding: 8px;
+
+    &__container {
+      border-radius: 16px;
+    }
+
+    &__content {
+      padding: 16px;
+    }
+
+    &__header {
+      padding: 16px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    &__grid {
+      gap: 12px;
+    }
+
+    &__section {
+      margin-bottom: 24px;
+    }
+
+    &__controls {
+      gap: 12px;
+      margin-top: 24px;
+      padding-top: 24px;
+    }
+  }
+
+}

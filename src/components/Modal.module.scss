@@ -1,0 +1,534 @@
+// Modern Minimalist Modal Styles
+// Using precise units (px, %, rem) for exact control
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+  animation: modalFadeIn 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+  }
+
+  &__container {
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    max-width: 672px;
+    width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #e5e5e5;
+    animation: modalSlideUp 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    @media (max-width: 768px) {
+      max-width: 100%;
+      margin: 16px;
+      max-height: calc(100vh - 32px);
+      border-radius: 16px;
+    }
+  }
+
+  &__header {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+
+    // Subtle pattern overlay
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 30%;
+    }
+
+    &_title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #ffffff;
+      margin: 0;
+      letter-spacing: -0.025em;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      padding: 20px;
+
+      &_title {
+        font-size: 18px;
+      }
+    }
+  }
+
+  &__content {
+    padding: 32px;
+    max-height: calc(90vh - 200px);
+    overflow-y: auto;
+
+    // Custom scrollbar
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f5f5f5;
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #d4d4d4;
+      border-radius: 3px;
+
+      &:hover {
+        background: #737373;
+      }
+    }
+
+    @media (max-width: 768px) {
+      padding: 20px;
+      max-height: calc(100vh - 160px);
+    }
+  }
+
+  &__section {
+    margin-bottom: 32px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &_title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #171717;
+      margin: 0 0 24px 0;
+      letter-spacing: -0.025em;
+      position: relative;
+      padding-left: 16px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 20px;
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        border-radius: 2px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      margin-bottom: 24px;
+
+      &_title {
+        font-size: 14px;
+        margin-bottom: 16px;
+      }
+    }
+  }
+
+  &__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+
+    & > * {
+      flex: 1 1 250px;
+      min-width: 250px;
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 16px;
+
+      & > * {
+        flex: 1 1 auto;
+        min-width: auto;
+      }
+    }
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &_label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #525252;
+      margin: 0;
+      text-transform: capitalize;
+      letter-spacing: 0.025em;
+    }
+
+    &_input {
+      border: 2px solid #e5e5e5;
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 16px;
+      font-family: inherit;
+      color: #171717;
+      background: #ffffff;
+      transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      min-height: 48px;
+
+      &::placeholder {
+        color: #a3a3a3;
+      }
+
+      &:hover {
+        border-color: #d4d4d4;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        background: #ffffff;
+      }
+
+      &_readonly {
+        background: #f5f5f5;
+        border-color: #e5e5e5;
+        cursor: not-allowed;
+        color: #525252;
+
+        &:hover {
+          border-color: #e5e5e5;
+        }
+
+        &:focus {
+          border-color: #e5e5e5;
+          box-shadow: none;
+        }
+      }
+
+      @media (max-width: 768px) {
+        padding: 14px 16px;
+        min-height: 44px;
+      }
+    }
+
+    &_unit {
+      font-size: 12px;
+      color: #525252;
+      font-weight: 500;
+      margin-top: 4px;
+      text-align: right;
+    }
+
+    &_radioGroup {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 8px;
+
+      @media (max-width: 768px) {
+        gap: 16px;
+      }
+
+      @media (max-width: 480px) {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+
+    &_radio {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+      transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background: #f5f5f5;
+      }
+
+      &_input {
+        width: 20px;
+        height: 20px;
+        margin: 0;
+        cursor: pointer;
+        accent-color: #3b82f6;
+      }
+
+      &_label {
+        font-size: 16px;
+        color: #171717;
+        cursor: pointer;
+        font-weight: 500;
+        text-transform: capitalize;
+      }
+    }
+  }
+
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    min-height: 48px;
+    position: relative;
+    overflow: hidden;
+
+    // Ripple effect base
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: width 150ms cubic-bezier(0.4, 0, 0.2, 1), height 150ms cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translate(-50%, -50%);
+      z-index: 0;
+    }
+
+    &:active::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    // Button content
+    & > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 60%;
+    }
+
+    &_primary {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: #ffffff;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+      &:hover:not(:disabled) {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        transform: translateY(-1px);
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+    }
+
+    &_secondary {
+      background: #f5f5f5;
+      color: #171717;
+      border: 2px solid #e5e5e5;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+      &:hover:not(:disabled) {
+        background: #f5f5f5;
+        border-color: #d4d4d4;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
+      &_disabled {
+        background: #f5f5f5;
+        color: #a3a3a3;
+        border-color: #e5e5e5;
+        cursor: not-allowed;
+
+        &:hover {
+          background: #f5f5f5;
+          border-color: #e5e5e5;
+          box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+          transform: none;
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      padding: 14px 24px;
+      font-size: 14px;
+      min-height: 44px;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e5e5;
+
+    @media (max-width: 768px) {
+      flex-direction: column-reverse;
+      margin-top: 24px;
+      padding-top: 20px;
+      
+      .modal__button {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// Modal animations
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Close button (if needed in the future)
+.modal__close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+  }
+
+  &::before {
+    content: '×';
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1;
+  }
+
+  @media (max-width: 768px) {
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+
+    &::before {
+      font-size: 20px;
+    }
+  }
+}
+
+// Подсказки внутри модалок
+.helpText {
+  display: block;
+  font-size: 11px;
+  color: #6b7280;
+  margin-bottom: 6px;
+  height: 33px;
+}
+
+.helpTextTop {
+  display: block;
+  font-size: 11px;
+  color: #6b7280;
+  margin-top: 6px;
+  height: 33px;
+}
+
+// Responsive adjustments
+@media (max-width: 480px) {
+  .modal {
+    padding: 16px;
+
+    &__container {
+      border-radius: 12px;
+    }
+
+    &__content {
+      padding: 16px;
+    }
+
+    &__header {
+      padding: 16px;
+      border-radius: 12px 12px 0 0;
+    }
+
+    &__grid {
+      gap: 12px;
+    }
+
+    &__section {
+      margin-bottom: 20px;
+    }
+
+    &__controls {
+      gap: 12px;
+      margin-top: 20px;
+      padding-top: 16px;
+    }
+  }
+}

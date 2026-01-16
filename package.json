@@ -1,0 +1,43 @@
+{
+  "name": "calc",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "build:gh": "tsc -b && vite build --mode gh",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "preview:gh": "vite preview --mode gh",
+    "predeploy": "npm run build",
+    "predeploy:gh": "npm run build:gh",
+    "deploy": "gh-pages -d dist",
+    "deploy:gh": "npm run predeploy:gh && gh-pages -d dist"
+  },
+  "dependencies": {
+    "lucide-react": "^0.544.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^7.9.3",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.36.0",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react-swc": "^4.1.0",
+    "eslint": "^9.36.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "gh-pages": "^6.3.0",
+    "globals": "^16.4.0",
+    "sass": "^1.93.2",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.44.0",
+    "vite": "npm:rolldown-vite@7.1.12"
+  },
+  "overrides": {
+    "vite": "npm:rolldown-vite@7.1.12"
+  }
+}
