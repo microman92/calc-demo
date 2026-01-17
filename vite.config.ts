@@ -11,6 +11,6 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react()],
-    base: isGhPages ? '/calc-origin/' : '/',
+    base: isGhPages ? '/calc-demo/' : '/',
   };
 });
